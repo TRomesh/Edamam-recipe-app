@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FilterTypes, parseFilters } from "../util/filters";
+import { FiltersTypes, parseFilters } from "../util/filters";
 
 const APPLICATION_ID = import.meta.env.VITE_APPLICATION_ID;
 const APPLICATION_KEY = import.meta.env.VITE_APPLICATION_KEY;
@@ -19,7 +19,7 @@ export const getRecipes = ({
   filters,
 }: {
   name: string;
-  filters?: Record<FilterTypes, string | number>;
+  filters?: Record<keyof FiltersTypes, string | number>;
 }) => {
   return instance.get(BASE_URL, {
     params: {

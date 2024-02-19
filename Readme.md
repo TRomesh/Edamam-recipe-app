@@ -41,3 +41,15 @@ The web application should include the following functionality:
 - Write some unit-tests
 - Make it look good on mobile as well as desktop
 - Deploy the app to a hosting service like [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)
+
+### Libraries used
+
+- [axios](https://github.com/axios/axios)
+- [Chakra-UI](https://chakra-ui.com/)
+- [debounce](https://github.com/lodash/lodash)
+- [react-router-dom](https://reactrouter.com/en/main)
+- [zustand](https://zustand-demo.pmnd.rs/)
+- [vitest](https://vitest.dev/)
+- [react-testing-library](https://testing-library.com/docs/react-testing-library/intro/)
+
+Deployment Link :- [https://main--edamam-recipes-app.netlify.app/](https://main--edamam-recipes-app.netlify.app/)

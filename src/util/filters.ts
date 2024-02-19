@@ -132,10 +132,14 @@ export const Filters = [
   { name: "Cuisine", type: "cuisineType", options: cuisineFilters },
 ];
 
-export const parseFilters = (obj: Record<FilterTypes, string | number>) => {
+// Parsing filters to omit empty or invalid filter values
+export const parseFilters = (
+  obj: Record<keyof FiltersTypes, string | number>
+) => {
   return Object.fromEntries(
     Object.entries(obj).filter(
-      ([key, value]) => value !== "" && (key !== "calories" || value !== 100)
+      ([key, value]) =>
+        value !== "" && (key !== "calories" || (value as number) > 100)
     )
   );
 };

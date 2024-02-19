@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { FilterTypes, RecipeRowType, RecipeType } from "./util/filters";
+import { FiltersTypes, RecipeRowType, RecipeType } from "./util/filters";
 import { getNextRecipes, getRecipes } from "./services/services";
 
 interface LinkType {
@@ -11,14 +11,14 @@ interface AppState {
   isLoading: boolean;
   recipes: RecipeType[];
   nextLink: LinkType;
-  favorites: RecipeType[];
-  checkFavorite: (name: string) => boolean;
+  bookmarks: RecipeType[];
+  checkBookmark: (name: string) => boolean;
   getRecipeData: (
     name: string,
-    filters?: Record<FilterTypes, string | number>
+    filters?: Record<keyof FiltersTypes, string | number>
   ) => void;
-  addFavorite: (recipe: RecipeType) => void;
-  removeFavorite: (name: string) => void;
+  addBookmark: (recipe: RecipeType) => void;
+  removeBookmark: (name: string) => void;
   getNextRecipes: (url: string) => void;
   clearRecipes: () => void;
 }
@@ -27,11 +27,14 @@ export const useStore = create<AppState>((set, get) => ({
   isLoading: false,
   recipes: [],
   nextLink: { href: null, title: null },
-  favorites: [],
+  bookmarks: [],
   getRecipeData: async (
     name: string,
-    filters?: Record<FilterTypes, string | number>
+    filters?: Record<keyof FiltersTypes, string | number>
   ) => {
+    set(() => ({
+      isLoading: true,
+    }));
     const { data } = await getRecipes({
       name,
       filters,
@@ -41,21 +44,22 @@ export const useStore = create<AppState>((set, get) => ({
     return set(() => ({
       recipes: recipes,
       nextLink: next,
+      isLoading: false,
     }));
   },
-  addFavorite: (favorite) => {
+  addBookmark: (bookmark) => {
     set((state) => ({
-      favorites: [...state.favorites, favorite],
+      bookmarks: [...state.bookmarks, bookmark],
     }));
   },
-  checkFavorite: (label) => {
-    const { favorites } = get();
-    return favorites.some((recipe) => recipe.label === label);
+  checkBookmark: (label) => {
+    const { bookmarks } = get();
+    return bookmarks.some((recipe) => recipe.label === label);
   },
-  removeFavorite: (label) =>
+  removeBookmark: (label) =>
     set((state) => ({
       ...state,
-      favorites: state.favorites.filter((recipe) => recipe.label !== label),
+      bookmarks: state.bookmarks.filter((recipe) => recipe.label !== label),
     })),
   getNextRecipes: async (url: string) => {
     const { data } = await getNextRecipes(url);

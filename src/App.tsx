@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
-import Favorite from "./pages/Favorite";
+import Bookmark from "./pages/Bookmark";
 import customTheme from "./util/theme";
 import Recipies from "./pages/Recipies";
 import NotFound from "./pages/NotFound";
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
         element: <Recipies />,
       },
       {
-        path: "/favorites",
-        element: <Favorite />,
+        path: "/bookmarks",
+        element: <Bookmark />,
       },
       {
         path: "*",

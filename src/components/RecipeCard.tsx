@@ -13,8 +13,8 @@ import { DeleteIcon } from "@chakra-ui/icons";
 
 type RecipeCardProp = {
   recipe: RecipeType;
-  favoriteMode?: boolean;
-  removeFavorite?: (id: string) => void;
+  bookmarkMode?: boolean;
+  removeBookmark?: (id: string) => void;
 };
 
 const PaginatedHealthLabel = ({
@@ -30,6 +30,7 @@ const PaginatedHealthLabel = ({
 
   const allShown = state.itemsToShow === state.labels.length;
 
+  // Loads health labels 3 by 3
   const showMore = (e: MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
     setState({
@@ -89,8 +90,8 @@ const DietLabels = ({ dietLabels }: { dietLabels: string[] }) => {
 
 function RecipeCard({
   recipe,
-  removeFavorite,
-  favoriteMode = false,
+  removeBookmark,
+  bookmarkMode = false,
 }: RecipeCardProp) {
   const { label, image, calories, healthLabels, dietLabels } = recipe;
   const [isOpen, setOpen] = useState(false);
@@ -118,6 +119,7 @@ function RecipeCard({
           objectFit="cover"
           alt={`Picture of ${label}`}
           roundedTop="lg"
+          data-testid="recipe-card-image"
         />
 
         <Box p="5">
@@ -133,6 +135,7 @@ function RecipeCard({
             alignContent="center">
             <Box
               fontSize="lg"
+              data-testid="recipe-card-label"
               fontWeight="semibold"
               lineHeight="tight">
               {label}
@@ -147,6 +150,7 @@ function RecipeCard({
               <Box
                 as="span"
                 color={"gray.600"}
+                data-testid="recipe-card-calories"
                 fontSize="lg">
                 Calories {calories.toFixed(2)} kcal
               </Box>
@@ -157,7 +161,7 @@ function RecipeCard({
             alignContent="space-around">
             <PaginatedHealthLabel labels={healthLabels} />
           </Flex>
-          {favoriteMode && removeFavorite ? (
+          {bookmarkMode && removeBookmark ? (
             <Flex
               mt="1"
               justifyContent="flex-end">
@@ -167,7 +171,7 @@ function RecipeCard({
                 icon={<DeleteIcon />}
                 onClick={(e) => {
                   e.preventDefault();
-                  removeFavorite(label);
+                  removeBookmark(label);
                 }}
               />
             </Flex>

@@ -184,7 +184,7 @@ function Recipies() {
               {recipes.map((recipe) => {
                 return (
                   <RecipeCard
-                    key={recipe.label}
+                    key={`${recipe.label}-${Math.random()}`}
                     recipe={recipe}
                   />
                 );
@@ -193,7 +193,7 @@ function Recipies() {
           )}
         </SimpleGrid>
         <Flex>
-          {nextLink?.href ? (
+          {nextLink?.href && !isLoading ? (
             <Button
               marginTop="5"
               width="100%"

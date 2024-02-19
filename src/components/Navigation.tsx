@@ -91,7 +91,7 @@ const Navigation = () => {
           pt={[4, 4, 0, 0]}>
           <MenuItem onClick={() => navigate("/recipes")}>Recipies</MenuItem>
           <MenuItem
-            onClick={() => navigate("/favorites")}
+            onClick={() => navigate("/bookmarks")}
             isLast>
             <Button
               size="sm"
@@ -107,7 +107,7 @@ const Navigation = () => {
                 ],
               }}
               leftIcon={<StarIcon />}>
-              Favorites
+              Bookmarks
             </Button>
           </MenuItem>
         </Flex>

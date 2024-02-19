@@ -73,7 +73,7 @@ const Digest = ({ digest }: { digest: RecipeType["digest"] }) => {
 function RecipeModal({ isOpen, onClose, size, recipe }: ModalProps) {
   const toast = useToast();
   const { label, image, ingredients, totalNutrients, digest } = recipe;
-  const { addFavorite, checkFavorite } = useStore((state) => state);
+  const { addBookmark, checkBookmark } = useStore((state) => state);
   return (
     <Modal
       onClose={onClose}
@@ -84,14 +84,14 @@ function RecipeModal({ isOpen, onClose, size, recipe }: ModalProps) {
         <ModalHeader>{label}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          {checkFavorite(label) ? (
+          {checkBookmark(label) ? (
             <Tag
               size="sm"
               variant="outline"
               marginBottom="2"
               colorScheme="green">
               <TagLeftIcon as={StarIcon} />
-              <TagLabel>Favorite</TagLabel>
+              <TagLabel>Bookmark</TagLabel>
             </Tag>
           ) : null}
           <Image
@@ -155,7 +155,7 @@ function RecipeModal({ isOpen, onClose, size, recipe }: ModalProps) {
           </Box>
         </ModalBody>
         <ModalFooter>
-          {!checkFavorite(label) ? (
+          {!checkBookmark(label) ? (
             <Button
               m={2}
               size="sm"
@@ -172,16 +172,16 @@ function RecipeModal({ isOpen, onClose, size, recipe }: ModalProps) {
               }}
               leftIcon={<StarIcon />}
               onClick={() => {
-                addFavorite(recipe);
+                addBookmark(recipe);
                 onClose();
                 toast({
-                  title: `Added ${label} to favorites`,
+                  title: `Added ${label} to bookmarks`,
                   status: "success",
                   isClosable: true,
                   duration: 2000,
                 });
               }}>
-              Add Favorite
+              Add Bookmark
             </Button>
           ) : null}
           <Button

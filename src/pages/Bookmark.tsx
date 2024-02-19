@@ -3,16 +3,16 @@ import RecipeCard from "../components/RecipeCard";
 import { useStore } from "../store";
 import { useNavigate } from "react-router-dom";
 
-function Favorite() {
+function Bookmark() {
   const navigate = useNavigate();
-  const favorites = useStore((state) => state.favorites);
-  const removeFavorite = useStore((state) => state.removeFavorite);
+  const bookmarks = useStore((state) => state.bookmarks);
+  const removeBookmark = useStore((state) => state.removeBookmark);
 
   return (
     <Flex
       direction="column"
       minH="84vh">
-      {!favorites.length ? (
+      {!bookmarks.length ? (
         <Flex justifyContent="center">
           <Box
             textAlign="center"
@@ -52,13 +52,13 @@ function Favorite() {
           paddingLeft={10}
           paddingRight={10}
           columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}>
-          {favorites.map((recipe) => {
+          {bookmarks.map((recipe) => {
             return (
               <RecipeCard
                 recipe={recipe}
                 key={recipe.label}
-                favoriteMode={true}
-                removeFavorite={removeFavorite}
+                bookmarkMode={true}
+                removeBookmark={removeBookmark}
               />
             );
           })}
@@ -68,4 +68,4 @@ function Favorite() {
   );
 }
 
-export default Favorite;
+export default Bookmark;

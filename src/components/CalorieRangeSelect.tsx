@@ -20,6 +20,7 @@ function CalorieRangeSelect({
   return (
     <>
       <Text
+        data-testid="calorie-component"
         fontSize="xs"
         fontWeight="bold">
         {name} {value}
